@@ -1,19 +1,31 @@
+
+vowels = "AIUEO"
+position = 1
+vowel_map = {
+"A": ['#', '*', '"', "!"],
+"I": ['>', '/', '.', "@"],
+"U": ['<', '[', '&', "%"],
+"E": ['~', '`', '$', "^"],
+"O": ['+', '-', '_', ")"]}
+reverse_vowel_map = {}
+for vowels, symbols in vowel_map.items():
+ for symbol in symbols:
+  reverse_vowel_map[symbol] = vowels
+
 while True:
     pilihan = input("Encrypt / Decrypt (E/D): ").upper()
 
     if pilihan == "E":
         text = input("Masukkan teks: ")
-
-        vowels = "AIUEO"
-        shift = 5
-        position = 1
-        vowel_map = {
-        "A": ['#', '*', '"', "!"],
-        "I": ['>', '/', '.', "@"],
-        "U": ['<', '[', '&', "%"],
-        "E": ['~', '`', '$', "^"],
-        "O": ['+', '-', '_', "~"]}
-
+        while True:
+            try:
+                shift = int(input("Masukkan shift: "))
+                if shift >= 0:
+                 break
+                else:
+                 print("Shift tidak boleh negatif.")
+            except ValueError:
+                print("Masukkan angka yang valid.")
         for char in text:
             if char.isalpha():
 
@@ -34,7 +46,29 @@ while True:
         break
 
     elif pilihan == "D":
-        print("Ntar dulu")
+        teks = input("Masukkan teks: ")
+        while True:
+                    try:
+                        shift = int(input("Masukkan shift: "))
+                        if shift >= 0:
+                         break
+                        else:
+                         print("Shift tidak boleh negatif.")
+                    except ValueError:
+                        print("Masukkan angka yang valid.")
+
+        for char in teks:
+           if char in reverse_vowel_map:
+                decrypted = reverse_vowel_map[char]
+           elif char.isalpha():
+                if char.isupper():
+                    decrypted = chr((ord(char) - ord('A') - shift) % 26 + ord('A'))
+                else:
+                    decrypted = chr((ord(char) - ord('a') - shift) % 26 + ord('a'))
+           else:
+                decrypted = char
+           print(decrypted, end="")
+        print()
         break
 
     else:
