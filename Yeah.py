@@ -5,7 +5,7 @@ vowel_map = {
 "A": ['#', '*', '"', "!"],
 "I": ['>', '/', '.', "@"],
 "U": ['<', '[', '&', "%"],
-"E": ['~', '`', '$', "^"],
+"E": ['~', '`', '$', "£"],
 "O": ['+', '-', '_', ")"]}
 reverse_vowel_map = {}
 for vowels, symbols in vowel_map.items():
@@ -32,6 +32,8 @@ while True:
                 if char.upper() in vowel_map:
                   index = (position - 1) % 4
                   encrypted = vowel_map[char.upper()][index]
+                  if char.isupper():
+                     print("^", end="")
                   print(encrypted, end="")
                 else:
                  if char.isupper():
@@ -56,10 +58,18 @@ while True:
                          print("Shift tidak boleh negatif.")
                     except ValueError:
                         print("Masukkan angka yang valid.")
-
+        uppercase_vowel = False
         for char in teks:
+           if char == "^":
+                uppercase_vowel = True
+                continue
            if char in reverse_vowel_map:
                 decrypted = reverse_vowel_map[char]
+                if uppercase_vowel:
+                    decrypted = decrypted.upper()
+                    uppercase_vowel = False
+                else:
+                    decrypted = decrypted.lower()    
            elif char.isalpha():
                 if char.isupper():
                     decrypted = chr((ord(char) - ord('A') - shift) % 26 + ord('A'))
