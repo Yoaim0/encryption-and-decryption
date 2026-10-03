@@ -1,4 +1,3 @@
-
 vowels = "AIUEO"
 position = 1
 vowel_map = {
