@@ -7,9 +7,9 @@ vowel_map = {
 "E": ['~', '`', '$', "£"],
 "O": ['+', '-', '_', ")"]}
 reverse_vowel_map = {}
-for vowel, symbols in vowel_map.items():
+for letter, symbols in vowel_map.items():
  for symbol in symbols:
-  reverse_vowel_map[symbol] = vowel
+  reverse_vowel_map[symbol] = letter
 
 #Encrypt
 def encrypt(teks, shift):
@@ -31,6 +31,7 @@ def encrypt(teks, shift):
             else:
                 encrypted = chr((ord(char) - ord("a") + shift) % 26 + ord("a") )
             hasil += encrypted
+            position += 1
         else:
             hasil += char
     return hasil
